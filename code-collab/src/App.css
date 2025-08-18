@@ -61,8 +61,9 @@
 
 .minWrap {
   display: grid;
-  grid-template-columns: 18% 1fr;
+  grid-template-columns: auto 1fr auto;
   height: 100vh;
+  transition: grid-template-columns 0.3s ease;
 }
 
 .aside {
@@ -72,12 +73,13 @@
   font-family: 'Baloo Bhaijaan 2', cursive;
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-width: 60px;
 }
 
 .logo {
   display: flex;
   border-bottom: 1px solid white;
-
 }
 
 .asideInner {
@@ -89,9 +91,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-
 }
-
 
 .textbox-message {
   display: block;
@@ -104,30 +104,42 @@
 }
 
 .rightTab {
-  /* display: flex; */
-  /* flex-direction: column; */
   float: right;
   height: 100vh;
-  background-color: white;
-  width: 25%;
+  background-color: #121111;
+  width: 300px;
   top: 0;
   bottom: 0;
-
-  /* position:fixed; */
-  background-color: #121111;
   overflow-y: scroll;
   overflow-x: hidden;
+  position: relative;
+  min-width: 60px;
 }
 
 .editorWrap {
-  display: flex;
-  flex-direction: row;
-
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100vh;
+  min-width: 0;
 }
 
 .middleTab {
-  width: 80%;
+  display: contents;
+}
 
+.editor-section {
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+  overflow: hidden;
+}
+
+.terminal-section {
+  background: #1e1e1e;
+  overflow: hidden;
+  /* Allow terminal-container to fill and scroll internally */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .client {
@@ -144,13 +156,19 @@
   margin-bottom: 1rem;
 }
 
-.CodeMirror {
-  min-height: 75vh;
+.btn-toggle-sidebar,
+.btn-toggle-chat {
+  transition: all 0.3s ease;
+}
+
+.btn-toggle-sidebar:hover,
+.btn-toggle-chat:hover {
+  transform: scale(1.1);
+  background-color: #5a75d4 !important;
 }
 
 .runbutton {
   margin-left: 1rem;
-
 }
 
 .runbutton:focus {
@@ -168,7 +186,6 @@
   padding-left: 8px;
   font-size: larger;
   color: rgba(231, 11, 56, 0.78);
-
 }
 
 .text-message {
@@ -185,4 +202,117 @@
 .all-btn:focus {
   outline: none;
   box-shadow: none;
+}
+
+/* Monaco Editor specific styles */
+.monaco-editor {
+  border-radius: 4px;
+}
+
+/* Responsive adjustments for collapsed sidebars */
+@media (max-width: 768px) {
+  .aside {
+    min-width: 50px;
+  }
+  
+  .rightTab {
+    min-width: 50px;
+  }
+  
+  .btn-toggle-sidebar,
+  .btn-toggle-chat {
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+  }
+}
+
+/* Smooth transitions for all collapsible elements */
+.aside,
+.rightTab,
+.asideInner,
+.middleTab {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure proper spacing when sidebars are collapsed */
+.aside:has(.asideInner[style*="opacity: 0"]) {
+  padding: 8px;
+}
+
+.rightTab:has(div[style*="opacity: 0"]) {
+  padding: 8px;
+}
+
+/* Terminal Styles */
+.terminal-container {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin: 10px;
+  overflow: hidden;
+  /* Make container fill available height and use flex for header/body */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #2d2d2d;
+  border-bottom: 1px solid #444;
+  color: white;
+  font-family: 'Baloo Bhaijaan 2', cursive;
+  font-size: 14px;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-body {
+  padding: 8px;
+  background: #1e1e1e;
+  /* Allow internal scroll without growing the page */
+  flex: 1 1 auto;
+  min-height: 0; /* important so child can shrink and enable scroll */
+  overflow: auto;
+}
+
+/* xterm.js customizations */
+.terminal-body .xterm {
+  padding: 8px;
+}
+
+.terminal-body .xterm-viewport {
+  background: #1e1e1e !important;
+}
+
+.terminal-body .xterm-screen {
+  background: #1e1e1e !important;
+}
+
+/* Responsive terminal */
+@media (max-width: 768px) {
+  .terminal-container {
+    margin: 5px;
+  }
+  
+  .terminal-header {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  
+  .terminal-controls {
+    gap: 4px;
+  }
+  
+  .terminal-controls .btn {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
 }
