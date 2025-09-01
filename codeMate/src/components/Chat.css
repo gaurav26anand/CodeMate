@@ -1,0 +1,41 @@
+/* Chat container */
+.render-chat {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  color: white;
+}
+
+.chat-title {
+  color: white;
+  text-align: center;
+  font-family: 'Baloo Bhaijaan 2', cursive;
+  border-bottom: 1px solid white;
+  margin: 1rem;
+}
+
+/* Input + Button container */
+.chatbox-container {
+  position: sticky;
+  bottom: 0;
+  background: #111;
+  padding: 10px;
+}
+
+/* Input styling */
+.chat-input {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+/* Button styling */
+.chat-send-btn {
+  background-color: #4d67c3 !important;
+  border: none !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  padding: 0 20px !important;
+  box-shadow: none !important;
+}
